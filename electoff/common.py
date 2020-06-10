@@ -3,6 +3,7 @@ import argparse
 import time
 import hashlib
 import json
+import re
 
 import requests
 from ediblepickle import checkpoint
@@ -27,7 +28,8 @@ def selenium_key_namer(args, kwargs):
   return 'sel_' + key_namer(args, kwargs)
 
 
-work_dir = dir_path(__file__) + '/../../cache/'
+work_dir = os.path.join(dir_path(__file__), 'cache')
+public_dir = os.path.join(dir_path(__file__), '..', 'public')
 
 
 @checkpoint(key=key_namer, work_dir=work_dir)
@@ -82,9 +84,10 @@ def decode_email(e):
 
 
 def diff_and_save(data, fname, verbose=True):
+  fpath = os.path.join(public_dir, re.sub(r'^public/', '', fname))
   # compare with old data (if exists)
-  if os.path.exists(fname):
-    with open(fname, 'r') as f:
+  if os.path.exists(fpath):
+    with open(fpath, 'r') as f:
       old_data = json.load(f)
   else:
     old_data = None
@@ -93,7 +96,7 @@ def diff_and_save(data, fname, verbose=True):
     print(f"Diff '{fname}': {diff}")
 
   # save new data
-  with open(fname, 'w') as f:
+  with open(fpath, 'w') as f:
     json.dump(data, f)
 
   return diff

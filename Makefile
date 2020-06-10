@@ -17,6 +17,12 @@ ipython:
 
 jupyter:
 	source venv/bin/activate && jupyter notebook
+	
+lint:
+	source venv/bin/activate && pylint electoff --rcfile=.pylintrc --reports=y
+	
+lint-warn:
+	source venv/bin/activate && pylint electoff --rcfile=.pylintrc --exit-zero --disable=all --enable=invalid-name
 
 test:
-	source venv/bin/activate && python test_public.py
+	source venv/bin/activate && cd electoff && inv test

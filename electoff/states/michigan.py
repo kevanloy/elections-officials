@@ -15,7 +15,7 @@ BASE_URL = "https://mvic.sos.state.mi.us/Clerk"
 # resolved issue with SSL cert chain by fixing intermediate cert
 # base64 root-intermediate-site certs saved from Chrome, converted to pem using openssl,
 # concatenated into mich_chain.pem
-SSL_CERT = os.path.join(dir_path(__file__), 'mich_chain.pem')
+SSL_CERT = os.path.join(dir_path(__file__), 'michigan_chain.pem')
 
 re_official = re.compile(r'^\s*(.*?)\s*[,\n]')
 re_address = re.compile(r'\n(.*)\nPhone', flags=re.MULTILINE + re.DOTALL)

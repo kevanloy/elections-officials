@@ -2,14 +2,13 @@ import csv
 import os
 import json
 import unittest
-
-from common import dir_path
+from common import dir_path, public_dir
 
 
 def get_arcgis_fipscode():
   # The following file is the Michigan ARCGIS data and unlikely to change with time
   # https://gis-michigan.opendata.arcgis.com/datasets/minor-civil-divisions-cities-townships-v17a/data?geometry=-167.515%2C43.121%2C169.985%2C84.204
-  with open(os.path.join(dir_path(__file__), 'Minor_Civil_Divisions.csv')) as fh:
+  with open(os.path.join(dir_path(__file__), 'data', 'Minor_Civil_Divisions.csv')) as fh:
     rows = list(csv.reader(fh))
     header = rows[0]
     rows = rows[1:]
@@ -18,7 +17,7 @@ def get_arcgis_fipscode():
 
 
 def get_data_fipscode():
-  file_ = os.path.join(dir_path(__file__), '..', '..', '..', 'public', 'michigan.json')
+  file_ = os.path.join(public_dir, 'michigan.json')
   with open(file_) as fh:
     rows = json.load(fh)
     return sorted([row['fipscode'] for row in rows])

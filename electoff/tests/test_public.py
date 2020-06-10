@@ -2,12 +2,12 @@ import unittest
 import glob
 import json
 import re
-
 from parameterized import parameterized
+from common import public_dir
 
 
 def publics():
-  return glob.glob('public/*.json')
+  return glob.glob(f'{public_dir}/*.json')
 
 
 class TestPublic(unittest.TestCase):
